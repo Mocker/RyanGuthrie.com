@@ -1,0 +1,247 @@
+<html><head>
+<title>{% block title %}RyanGuthrie.com - Web and Game Development{% endblock %}</title>
+<link rel='icon' type='image/png' href='/site_media/images/fishy_icon32a.png'>
+<script type="text/javascript" src="/site_media/js/jquery.js"></script>
+<script type="text/javascript" src="/site_media/js/frame.js"></script>
+<link rel="stylesheet" type="text/css" href="/site_media/css/frame.css">
+<script type="text/javascript">
+	$(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+</script>
+<style>
+	.menu_category {
+		font-weight: bold;
+		font-decoration: underline;
+	}
+</style>
+{% block includes %}{% endblock %}
+</head>
+<body>
+
+
+
+
+<div id="DV_OUTER_FRAME">
+<div id="DV_TITLE"><h1><a href='/' style='color: inherit;'>{% block HeaderTitle %}Ryan Guthrie.com{% endblock %}</a></h1></div>
+<div id="DV_OUTER_SHADOW">
+<table id="Table_01" width="100%" height="480"  cellpadding="0" cellspacing="0">
+	<tr>
+		<td id="TD_TL"></td>
+		<td id="TD_T">
+		<!-- lets get a menu or something up in this -->
+		<div id="DV_MENU">
+				<ul class="topnav">
+					<li>
+						<a href="#">
+							<img class='IMG_ICON' src='/site_media/images/icon_news.png' alt='Blog and Recent Changes' height=20px width=20px>
+						</a>
+							 <ul class="subnav">
+								<li class='yuimenuitem'><a class='yuimenuitemlabel' href='http://rguth.blogspot.com/'>
+									<div class='slickstuff'>
+										<img src='/site_media/images/icons/rss_24x24.png'> Blog
+                                    </div>
+								</a></li>
+							</ul>
+								
+								
+					</li>
+					<li >
+						<a href="/portfolio">
+							<img class='IMG_ICON' src='/site_media/images/icon_portfolio.png' alt='Porfolio & Projects' height=20px width=20px></a>
+						
+							<ul class="subnav">
+								<li>
+									<a class='yuimenuitemlabel' href='/portfolio'>
+										<img src='/site_media/images/icons/blue_chartlink.png'> Portfolio
+										</a>
+									
+								</li>
+								<li>
+									<a href='/projects'>
+										<div class='slickstuff'>
+											<img src='/site_media/images/icons/blue_gallerylink.png'> Projects
+										</div>
+									</a>
+								</li>
+								<li>
+								<a href='/services'>
+								<img src='/site_media/images/icons/blue_config.png' \> Services </a>
+							</li>
+							</ul>													
+					</li>
+					
+					<!--right side -->
+					<li class="li_right" style="float: right;">
+						<a href="#">
+							<img class='IMG_ICON' src='/site_media/images/icon_whaa.png' alt='About RyanGuthrie.com and Resume' width=20px height=20px></a>
+
+							<ul class="subnav">
+								<li >
+								<a  href='/profile'><img src='/site_media/images/icons/blue_view.png'> About
+								</a></li>
+								<li >
+								<a  href='/resume'>
+								<img src='/site_media/images/icons/blue_edit.png'>Resume</a>
+								</li>
+								<li>
+								<a  href='/contact'>
+                                <img src='/site_media/images/icons/email_24x24.png'> Contact</a>
+							</li>
+							</ul>
+					</li>
+				</ul>
+		</div>
+		<!-- no more menu plz -->
+		</td>
+		<td id="TD_TR"></td>
+	</tr>
+	<tr>
+		<td id="TD_L"></td>
+
+<!-- Content -->
+<td id="TD_C">
+	<div id="DV_INNER_BOX" style="min-height: 600px;">
+
+	<div id="DV_INNER_L">
+
+		<div id="DV_INNER_BLURB">
+		{% block sideblurb %}
+		{{ blurb }}
+		HEY I Am a PROGRAMMER. I CODE THINGS. I would like to code your things!
+		{% endblock %}
+		</div>
+	<div id="DV_FISH">
+		<!--<img id='IMG_FISH' src='/site_media/images/fishy_grayy.png' style='z-index: 0;'> -->
+		{% block sidebar %}
+		<ul style="list-style-type: none; color: #000;" class="side_menu">
+			<li><span class="menu_category">Recent Projects</span</li>
+			<li><a href="/projects#repulsor">Repulsor</a></li>
+			<li><a href="/portfolio#hivemind">HiveMind Media</a></li>
+			<li><a href="/projects#drifting">Drifting</a></li>
+			<li><a href="/projects#misc_scripts">Anna</a></li>
+			<li><i><a href="/projects">All Posts..</a></i></li>
+			<li>&nbsp;</li>
+			<li><span class="menu_category">Recent Posts</span></li>
+			<li>AI Class: Week 1</li>
+			<li>52 Weeks: Basic 3D in Java</li>
+			<li><i><a href="http://rguth.blogspot.com/">All Posts..</a></i></li>
+		</ul>
+		{% endblock %}
+		</div>
+	</div>
+	<div id="DV_INNER_R">
+		<div class="content">
+	{% block content %}
+	 HEY WTF WHERES THE CONTENT
+    {% endblock %}
+    	</div>
+
+
+<!-- FRAME END -->
+
+        </div>
+        <!-- ok  no more actual shit -->
+        </div>
+</td>
+<!-- Back to frame -->
+                <td id="TD_R"></td>
+        </tr>
+        <tr>
+                <td id="TD_BL"></td>
+                <td id="TD_B">
+					<ul class='menu_plain'>
+						<li style='font-size: 0.8em; width: 140px; float: right;' class="li_right">
+						<a target="_blank" href="http://settings.messenger.live.com/Conversation/IMMe.aspx?invitee=afac0974892946a9@apps.messenger.live.com&mkt=en-US">
+						<img style="border-style: none;" src="http://messenger.services.live.com/users/afac0974892946a9@apps.messenger.live.com/presenceimage?mkt=en-US" width="16" height="16" />
+						</a>
+						<a href='http://www.linkedin.com/in/ryanguthrie'>
+						<img src="http://www.linkedin.com/img/webpromo/btn_profile_greytxt_80x15.gif" width="80" height="15" border="0" alt="View Ryan Guthrie's profile on LinkedIn">
+						</a>
+					</li>
+					</ul>
+				</td>
+                <td id="TD_BR"></td>
+        </tr>
+</table>
+</div>
+</div>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2235410-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>

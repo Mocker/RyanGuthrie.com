@@ -1,0 +1,234 @@
+{% extends "rg_frame.html" %}
+{% block sideblurb %}
+<ul style="list-style-type: none; color: #000; font-size: 1.1em;">
+
+<li>Web Development</li><li>Server Administration</li><li>Flash/HTML5 Game Development</li>
+</ul>
+{% endblock %}
+
+{% block HeaderTitle %}portfolio @ Ryan Guthrie.com {% endblock %}
+
+{% block includes %}
+
+<script src="/site_media/js/ui.core.js" type="text/javascript"></script>
+<script src="/site_media/js/ui.tabs.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/site_media/css/ui.tabs.css" type="text/css" />
+<script src="/site_media/js/jquery.lightbox-0.5.pack.js" type="text/javascript" ></script>
+<link rel="stylesheet" href="/site_media/css/jquery.lightbox-0.5.css" media="screen" type="text/css" />
+
+<script type="text/javascript" src="/site_media/js/jquery.simplyscroll-1.0.4.js"></script>
+<link rel="stylesheet" href="/site_media/css/jquery.simplyscroll-1.0.4.css" media="all" 
+type="text/css">
+<script type="text/javascript">
+			//$(function() {
+            //    $('#portfolio_tabs > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 4000);
+            //});
+	var slider_width = {{ portfolio_size }};
+	var slider_offset = 0;
+	var slider_focus = 'none'; //which div has focus
+	
+	$(document).ready( function(){
+			//$('#portfolio_tabs > ul').tabs({ event:'mouseover' });
+			
+			//bind nav divs to change slider position
+			$('div.nav_left').bind('mouseover', function(d){
+					slider_focus = 'left';
+					//$('#spStatus').html('Sliding left');
+					//setTimeout("slideLeft()",200);
+			});
+			$('div.nav_left').bind('mouseout', function(d){ slider_focus =  'none'; });
+			$('div.nav_right').bind('mouseover',function(d){
+					slider_focus = 'right';
+					//$('#spStatus').html('Sliding right');
+					//setTimeout("slideRight()",200);
+			});
+			$('div.nav_right').bind('mouseout',function(d){ slider_focus = 'none'; });
+			$('ul.portfolio_list li').fadeTo('normal',0.2);
+			$("#scroller").simplyScroll({
+			speed: 5,
+			width: 400
+			});
+	});
+	
+	function slideLeft(){
+		if(slider_focus != "left"){ return; } //lost focus
+		//if(slider_offset == 450){ return;}
+		var newoffset =  0;
+		if(slider_offset < 5 ){  
+			newoffset = slider_offset + 10;
+			$('div.nav_right').css({'background-image':'url(/site_media/images/nav_right.png)'});
+			}
+		if(slider_offset > 0 ){ 
+			$('div.nav_left').css({'background':'#333'});
+		}
+		$('ul.portfolio_list').css({'left': newoffset+'px' }); 
+		slider_offset = newoffset; 
+		
+		setTimeout( "slideLeft()",200 );
+	}
+	function slideRight(){
+		if(slider_focus != "right"){ return; }
+		//if(slider_offset == 0 ){ return;}
+		var newoffset = 0 ;
+		if(slider_offset > (0-slider_width) ){  
+			newoffset = slider_offset - 10; 
+			$('div.nav_left').css({'background-image':'url(/site_media/images/nav_left.png)'});
+			}
+		if(slider_offset < (0-slider_width) ){
+			$('div.nav_right').css({'background':'#333'});
+		}
+		$('ul.portfolio_list').css({'left': newoffset+'px' }); 
+		slider_offset = newoffset; 
+		
+		setTimeout( "slideRight()",200 );
+	
+	}
+	
+	function fadeList(liID)
+	{	//fade tab elements to background
+		$('ul.portfolio_list li').stop();
+		$('ul.portfolio_list li').fadeTo('normal',0.2);
+		$('div.description').css('display','none');
+		$('#'+liID).css('opacity',0);
+		$('#'+liID).css('display','block');
+		$('#'+liID).fadeTo('slow',1.0);
+		$('#li'+liID).fadeTo('fast',1.0);
+	}
+	function fadeTitle(title)
+	{
+		$('#scrollerText').html(title);
+		$('#scrollerText').css('opacity',0);
+		$('#scrollerText').css('display','block');
+		$('#scrollerText').fadeTo('slow',1.0);
+	}
+			
+</script>
+<style type="text/css">
+	ul.portfolio_list {
+		width: {{ portfolio_size }}px;
+		border-top: 1px solid #ccc;
+		border-bottom: 1px solid #ccc;
+		height: 125px;
+		position: relative;
+	}
+	
+	ul.portfolio_list li {
+		width: 115px;
+		padding: 0; margin: 0;
+		float: left;
+	}
+
+	ul.portfolio_list li a:hover {
+		background-color: #f0f0ff;
+	}
+
+	div.portfolio_slider {
+		width: 450px;
+		overflow: hidden;
+	}
+	
+	div.description 
+	{
+		position: relative; margin-left: 5px;
+		margin-top: 10px;
+		width: 430px;
+		min-height: 150px;
+		max-height: 400px;
+		border-left: 2px solid #ccc;
+		border-bottom: 2px solid #ccc;
+		padding: 2px 4px 2px 2px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+	div.slider {
+			background-color: #333;
+			position: absolute;
+			z-index: 700;
+			width: 10px;
+			height: 125px;
+	}
+	div.nav_left { left: 0;}
+	div.nav_right {right: 0; background-image: url(/site_media/images/nav_right.png); }
+	
+	ul.images {
+		position: relative;
+		width: 400px; padding: 2px 2px; margin: 0;
+		background-color: #333;
+		list-style-type: none;
+		height: 60px;
+		overflow-y: hidden;
+	}
+	ul.images li {
+			float: left; margin-right: 10px; background-color: #666; width: 70px; padding-left: 2px; padding-right: 2px;
+			height: 60px;
+			z-index: 850;
+	}
+	ul.images li a:hover { border: 1px solid #999; }
+	div.portfolio_description {
+		position: relative;
+		top: -5px;
+	}
+	
+	.simply-scroll-clip { width: 400px; }
+	#scroller li { width: 100px; }
+	.simply-scroll .simply-scroll-clip .simply-scroll-container { width: 400px; }
+
+}
+	#scrollerText {
+		position: absolute; font-size: 1.4em; font-weight: bold;
+		text-align: center; width: 200px; 
+		margin-left: auto; margin-right: auto;
+		top: -55px; left: -40px;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Portfolio</h1>
+<p>Here are a few case studies of sites I have worked on. Choose one for more details.</p>
+<span id='spStatus'></span><br>
+<ul id="scroller">
+	{% for p in portfolio %}
+		<li class="scroll"><img src="{{ p.imgSrc }}" alt="{{p.imgTitle}}" onMouseOver="fadeTitle('{{ p.imgTitle }}');" onMouseOut='$("#scrollerText").html("&nbsp;");' onClick="fadeList('{{p.tag}}');"></li>
+	{% endfor %}
+	</ul>
+<div id="scrollerText" style="position: relative; font-size: 1.2em; font-weight: bold; top: -50px; left: -50px;"></div>
+<div class="portfolio_slider" id="portfolio_tabs">
+<div class="slider nav_left" style="display: none;"></div>
+<div class="slider nav_right" style="display: none;"></div>
+	
+	<ul class="portfolio_list" style="display: none;">
+	{% for p in portfolio %}
+		<li id='li{{ p.tag }}' ><a href="#{{ p.tag }}" onMouseOver="fadeList('{{ p.tag }}');">
+			<span>{{ p.tag }}<br><img src="{{ p.imgSrc }}" alt="{{ p.imgTitle }}" width=80px height=100px ></span>
+			</a>
+		</li>
+	{% endfor %}
+	</ul>
+	{% for p in portfolio %}
+	<div id="{{ p.tag }}" class='description' style='display: none;'>
+		<h3>{{ p.title }}</h3>
+		<ul class='images'>
+			{% for i in p.images %}
+				<li><a href='{{ i.src }}' class='lightbox'><img src='{{ i.thumbSrc }}' alt='{{ i.alt %}'></a></li>
+			{% endfor %}
+		</ul><br>
+		<div class="portfolio_description" >
+			{{ p.info|safe }}
+			
+			
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<script type="text/javascript">
+	$(function() {
+		$('a.lightbox').lightBox(); 
+	});
+</script>	
+
+
+
+{% endblock %}

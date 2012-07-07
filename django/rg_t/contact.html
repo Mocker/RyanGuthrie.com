@@ -1,0 +1,240 @@
+{% extends "rg_frame.html" %}
+{% block sideblurb %}
+<ul style="list-style-type: none; color: #000; font-size: 1.1em;">
+<!--<li><img src='/site_media/images/icons/blue_edit.png'> Resume</li>
+<li><img src='/site_media/images/icons/email_24x24.png'> Contact</li>
+-->
+<li>Web Development</li><li>Server Administration</li><li>Flash/HTML5 Game Development</li>
+</ul>
+{% endblock %}
+
+{% block HeaderTitle %}contact Ryan Guthrie.com {% endblock %}
+
+{% block includes %}
+<script src="/site_media/js/ui.core.js"></script>
+<script src="/site_media/js/ui.tabs.js"></script>
+<script src="/site_media/js/form.js"></script>
+<link rel="stylesheet" href="/site_media/css/ui.tabs.css" type="text/css">
+<style type="text/css" media="screen">
+  /* style stub for you */
+  h2.header_gray { border-left: 3px solid #999; width: 100%; background-color: #eee; }
+  p { font-size: 0.8em; }
+  
+  div.short_form {
+	width: 40em;
+	margin: 0;
+	border: 
+  }
+  div.short_form label {
+	width: 8em; float: left;
+	text-align: right;
+	margin-right: 0.5em;
+	display: block;
+  }
+  div.short_form input {
+	margin-left: 4.5em;
+ }
+ div.short_form input.required {
+	color: #781351;
+	background: #fee3ad;
+	border: 1px solid #781351;
+ }
+ div.short_form textarea.required {
+	color: #781351;
+	background: #fee3ad;
+	border: 1px solid #781351;
+ }
+ div.short_form fieldset {
+	border: 1px solid #781351;
+	width: 37em;
+ }
+ div.error_quote {
+	font-color: #660000;
+	font-size: 0.8em;
+ }
+ div.error_email {
+	font-color: #660000;
+	font-size: 0.8em;
+ }
+ #error_email {
+	font-color: #600;
+	font-size: 1.2em;
+ }
+ #error_quote {
+	font-color: #600;
+	font-size: 1.2em;
+ }
+
+  
+</style>
+<script type="text/javascript">
+	$(function() {
+                $('#rotate > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 4000);
+            });
+
+
+
+	$(document).ready(function() {
+		
+		document.getElementById('spPhone').innerHTML = "1 ("+(500+39+2)+") "+(310+40+7)+"-"+(7010+77+400) ;
+		var csrf = getCookie('csrftoken');
+		var options_email = {
+			target:	'#error_email',
+			wtf: 'WTF',
+			headers: {"X-CSRFToken": getCookie('csrftoken') },
+			beforeSubmit: setAjaxHeader,
+			url:	'/contact/email',
+			success:	function(data, textStatus, jqXHR){
+				//console.log("email success: "+data)
+				$('#error_email').css({'border': '1px solid black'}); 
+				document.getElementById('frmEmail').sbm.disabled = false;},
+			error: function(jqXHR, textStatus, errorThrown){
+				//console.log(jqXHR.responseText);
+				$('#error_email').css({'border': '2px solid red'}); 
+				$('#error_email').html("Error sending email: "+textStatus);
+				//alert("UNABLE TO LOAD PROCESS EMAIL- "+textStatus);
+			},
+			complete: function(){  }
+		};
+		var options_quote = {
+			target:	'#error_quote',
+			headers: {"X-CSRFToken": getCookie('csrftoken') },
+			beforeSubmit: setAjaxHeader,
+			url:	'/contact/quote',
+			success:	function(){
+				$('#error_quote').css({'border': '1px solid black'}); 
+				document.getElementById('frmQuote').sbm.disabled = false;},
+			error: function(jqXHR, textStatus, errorThrown){
+				//console.log(jqXHR.responseText);
+				$('#error_email').css({'border': '2px solid red'}); 
+				$('#error_email').html("Error sending quote: "+textStatus);
+				//if(textStatus == "500")
+				//alert("UNABLE TO LOAD PROCESS EMAIL- "+textStatus);
+			}
+		};
+		$('#frmEmail').ajaxForm(options_email);
+		$('#frmQuote').ajaxForm(options_quote);
+		
+	});
+	
+	function setAjaxHeader(formData, jqForm, options) { 
+		return true;
+	}	
+
+	//form validation
+	var reEmail = new RegExp("^[0-9a-zA-Z]+@[0-9a-zA-Z]+[\.]{1}[0-9a-zA-Z]+[\.]?[0-9a-zA-Z]+$");
+	function checkEmail()
+	{
+		$('#error_email').html('Submitting quote request..');
+		document.getElementById('frmEmail').sbm.disabled = true;
+		//$('#frmEmail').ajaxSubmit();
+		$('#frmEmail').submit(); 
+		return false;
+	}
+	
+	function checkQuote()
+	{
+		$('#error_quote').html('Submitting quote request..');
+		document.getElementById('frmQuote').sbm.disabled = true;
+		$('#frmQuote').ajaxSubmit({beforeSubmit: setAjaxHeader}); return false;
+	}
+</script>
+{% endblock %}
+
+{% block content %}
+<h2 class='header_gray'>Contact Options</h2>
+<p>I keep accounts for most popular communication methods in order to be available at any time. 
+For any detailed requests, please use the form below or an email. For everything else, choose the method that 
+works best for you.</p>
+
+<div id="rotate">
+	<ul>
+		<li><a href="#details"><span>Contact Details</span></a></li>
+		<li><a href="#email"><span>Email</span></a></li>
+		<li><a href="#quote"><span>Request Quote</span></a></li>
+	</ul>
+	<div id="details">
+		<form><fieldset><legend>Contact Details</legend>
+		{% csrf_token %}
+		<ul style="list-style-type: none;">
+			<li><b>Email</b>: <img src='/site_media/images/email_white.png'></li>
+			<li><b>MSN</b> (click to open a chat): 
+			<a href='http://settings.messenger.live.com/Conversation/IMMe.aspx?invitee=afac0974892946a9@apps.messenger.live.com&mkt=en-US' target='_blank'>
+			r.guth@live.com <img style='border-style: none;' src='http://messenger.services.live.com/users/afac0974892946a9@apps.messenger.live.com/presenceimage?mkt=en-US' width=16 height=16>
+			</a></li>
+			<li style='z-index: 600;'><b>Phone:</b> <span id='spPhone'></span><br>
+				<object type="application/x-shockwave-flash" data="https://clients4.google.com/voice/embed/webCallButton" width="230" height="85"><param name="movie" value="https://clients4.google.com/voice/embed/webCallButton" /><param name="wmode" value="transparent" /><param name="FlashVars" value="id=1deb8d9a6e4d878efb4e2d7c3107f2241f475f67&style=0" /></object>
+				</li>
+			<li><b>Skype:</b> Ry.Guth<br>
+			<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+<a href="skype:ry.guth?call"><img 
+src="http://mystatus.skype.com/bigclassic/ry.guth" style="border: none;" width="182" height="44" alt="My status" /></a>
+			</li>
+		</ul>
+		</fieldset></form>
+	</div>
+	<div id="email">
+		Email me at <img src='/site_media/images/email_white.png'><br>-or-<br>Fill out the form below:<br>
+		<div class='short_form'>
+		<form name='frmEmail' id='frmEmail' method=POST action='/contact/email' onSubmit="return false;">
+			{% csrf_token %}
+			<fieldset>
+			<legend>Send an Email</legend>
+			<span class="error_email" id="error_email">{{ error_email }}</span><br>
+			*<i> denotes a required field</i><br>
+			<label for="email_full_name">Full Name*</label><input type=text size=40 name='email_full_name' id="email_full_name" class="required"><br>
+			<label for="email_company">Company</label><input type=text size=40 name='email_company' id="email_company"><br>
+			<label for="email_website">Website URL</label><input type=text size=40 name='email_website' id="email_website"><br>
+			<label for="email_email">Email Address*</label><input type=text size=40 name='email_email' class='required' id='email_email'><br>
+			<label for="email_phone">Phone Number</label><input type=text size=40 name='email_phone' id="email_phone"><br>
+			<label>Preference:</label><input type=radio name='email_c_pref' value='Email' checked>Email<input type=radio name='email_c_pref' value='Phone'>Phone<br>
+			<label for="email_txt_msg">Message*</label><br><textarea name='email_txt_msg' rows=8 cols=40 id="email_txt_msg" class='required'></textarea><br>
+			<input type=submit name='sbm' value='Send Message' onClick="checkEmail();">
+			</fieldset>
+		</form>
+		</div>
+	</div>
+	<div id="quote">
+		Please be as specific as possible in your description for an accurate quote
+	<div class='short_form'>
+		<form name='frmQuote' id="frmQuote" method=POST action='/contact/quote' onSubmit="return false;">
+			<fieldset>
+			<legend>Request a Quote</legend>
+			<span class='error_quote' id="error_quote">{{ error_quote }}</span><br>
+			*<i> denotes a required field</i><br>
+			<label for='full_name'>Full Name*</label><input type=text size=40 name='full_name' class='required' id='full_name'><br>
+			<label for='company'>Company</label><input type=text size=40 name='company' id='company'><br>
+			<label for='website'>Website URL</label><input type=text size=40 name='website' id='website'><br>
+			<label for='email'>Email Address*</label><input type=text size=40 name='email' id='email' class='required'><br>
+			<label for='phone'>Phone Number</label><input type=text size=40 name='phone'><br>
+			<label for='c_pref'>Preference:</label> 
+			<input type=radio name='c_pref' value='Email' checked>Email
+			<input type=radio name='c_pref' value='Phone'>Phone<br>
+			<label for='urgent'>Urgency</label><input type=radio name='urgent' value='low' checked>low<input type=radio name='urgent' value='high'>high<br>
+			<label for='sl_type'>Type of work*</label> <select name='sl_type'>
+				<option>Select one..</option>
+				<option>New site design + development</option><option>New design only</option>
+				<option>New site w/existing design</option><option>New app for existing site</option>
+				<option>Modify/Troubleshoot existing site/app</option><option>Other design work</option>
+				<option>Other programming work</option><option>Server configuration</option>
+				<option>Not listed</option></select><br><br>
+			<label for='sl_type' style='text-decoration: underline;'>Project will need</label><br>
+				<label>Photos/Videos:</label> <input type=checkbox name=p_reqs value='media'><br>
+				<label>Domain Reg:</label><input type=checkbox name=p_reqs value='domain'><br>
+				<label>Hosting**:</label> <input type=checkbox name=p_reqs value='hosting'><br>
+				<label>Admin:</label><input type=checkbox name=p_reqs value='admin'><br>
+				<label>eCommerce:</label><input type=checkbox name=p_requs value='ecommerce'><br>
+				
+				<br>
+			<label for='txt_language'>Language/Platform Requirements</label><br> <textarea name='txt_language' rows=2 cols=50 ></textarea><br>
+			
+			<label for='description'>Project Description:*</label><br><textarea name='description' rows=8 cols=50 class='required'></textarea><br>
+			<input type=button name='sbm' value='Send Request' onClick='checkQuote();'>
+			<fieldset>
+		</form>
+		<br>
+		<i>**-hosting implies admin services as well. If you will be managing your site yourself, then please state that in the additional notes</i>
+		</div>		
+	</div>
+</div>
+{% endblock %}

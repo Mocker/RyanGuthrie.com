@@ -1,0 +1,114 @@
+{% extends "rg_frame.html" %}
+{% block sideblurb %}
+<ul style="list-style-type: none; color: #000; font-size: 1.1em;">
+
+<li>Web Development</li><li>Server Administration</li><li>Flash/HTML5 Game Development</li>
+</ul>
+{% endblock %}
+
+{% block HeaderTitle %}services @ Ryan Guthrie.com {% endblock %}
+
+{% block includes %}
+<style type="text/css" media="screen">
+  /* style stub for you */
+  ul.services {
+	margin-top: 25px;
+	font-size: 0.9em;
+	font-family: "Courier New";
+	width: 90%;
+  }
+  ul.services li {
+	width: 100%;
+	margin-left: 10px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+  }
+  ul.jho {
+	background-color: #E2C69E;
+	color: #000;
+  }
+  ul.ryan {
+	background-image: url(/static/images/blue_square.png);
+	color: #000;
+  }
+  span.services {
+	width: 600px;
+	height: 52px;
+	font-size: 1.2em;
+	letter-spacing: 1px;
+	margin-bottom: 25px;
+  }
+  span.services img {
+	position: relative; float: left;
+  }
+  span.services b {
+	
+		margin-left: 14px;
+	}
+  span.jho {
+	color: #B59052;
+	max-height: 48px;
+  }
+  span.ryan {
+	color: #05476C;
+  }
+  div.jho_art {
+	max-height: 16px; overflow: hidden;
+	width: 120px;
+	z-index: 400;
+	text-decoration: underline;
+  }
+  div.jho_art:hover {
+	max-height: 450px; background-color: #ccc; width: 400px; z-index: 500;
+  }
+  div.jho_artbox {
+	background-color: #000;
+	position: relative;
+	width: 370;
+	height: 280;
+	z-index: inherit;
+  }
+  div.jho_artbox img {
+	margin: auto auto;
+  }
+  div.contact {
+	padding: 2px 4px 2px 4px;
+	background-color: #eee;
+	border-right: 2px solid #ccc;
+	border-bottom: 2px  solid #ccc;
+	width: 300px;
+  }
+  p { text-align: left; }
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Services</h1>
+<p>
+<img src='/site_media/images/icons/stepfinal1.png' width=111 height=77 style="float: left;">
+I am currently open for work, either short contracts or large projects, as well as more long term employment agreements. I can work on a variety of platforms and technology stacks with some of my experience including: <br>
+<b>
+<ul class='services ryan'>
+	<li>Server scripts and apps (php,perl,python,ruby,c++.. you name it)</li>
+	<li>Interactive frontends (javascript+ajax or flash/flex)</li>
+	<li>Full website frameworks (powerful server backend, templated design, easy management panel)</li>
+	<li>Plugins for most popular apps (wordpress,phpbb,joomla)</li>
+	<li>Complete Linux server administration and hosting (keeping your website up stress-free)</li>
+	<li>Many other options, just name it (mobile,gaming,desktop etc)</li>
+</ul>
+<p>Websites are now an irrefutable requirement for just about any business. What your site says about your company is often 
+the first impression a potential customer will see, and we are here to make sure you can show them what you are all about.
+<br><br>
+We will work with any size business to figure out what matches your needs and your budget, and work to provide  you the best
+possible quality for the dollar.<br><br>
+For a fully worry-free package, we can handle every technical detail required in setting up a new site, including registration,
+hosting, and administration on an ongoing basis. Every full website includes a secure management panel to keep the site updated
+for your convenience.
+<br>
+<div class='contact'><a href='/contact/#quote'>Request a Free Consultation</a></div>
+</p>
+
+{% endblock %}

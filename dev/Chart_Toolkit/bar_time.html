@@ -1,0 +1,83 @@
+<html>
+<head><title>Bars over Time</title></head>
+<body>
+<!-- Maps JS/CSS -->
+
+	<script type="text/javascript" src="js/protovis.js"></script>
+	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+	-->
+	<script type="text/javascript" src="js/protoSlider.js"></script>
+	<script type="text/javascript" src="js/jquery-1.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.js"></script>
+
+	<script type="text/javascript" src="js/protoSliderBarTime.js"></script>
+	
+	<meta charset="utf-8"></meta>
+<link rel="stylesheet" href="css/jquery-ui-1.8.15.custom2.css">
+<style>
+	#chart { margin-right: auto; margin-left: auto; }
+	#wrapper { width: 500px; min-height: 400px; margin-left: auto; margin-right: 35em;  border: 0px inset white; color: #000; font-weight: bold; }
+	#sliderwrap { width: 400px; margin-left: auto; margin-right: -2em; }
+	#slidercontrol { margin-right: -15em; width: 150px; float: right; cursor: pointer; margin-top: 1.5em;}
+	#sliderlabels { margin-top: .2em; margin-right: .1em; }
+	#addbars { width: 150px; float: right; margin-left: auto; margin-right:-0.8em; }
+	#addbars input { padding: 5px; color: #fff; background-color: #000; border: 1px solid black; font-weight: bold; cursor: pointer; }
+	input.slider { border:0; color:#f6931f; font-weight:bold; }
+</style>
+
+<script type="text/javascript">
+	
+
+	var visSlide;
+	
+   var dataTime = genDataTime(2010,2013,5000,80000);
+   var datakeys = new Array("14-18","19-21","22-24","25-34","35-44","45-54","55-64","65-99");
+   var dataLegend = new Array("Some County","Some State");
+  
+
+   //generate fake set of data
+   function genDataTime(minYear,maxYear,countyRange,stateRange){
+   		var newData = new Object();
+   		for(var y = minYear; y<=maxYear; y+=1){
+   			newData[y] = Array();
+   			for(var q=1; q<5; q+=1){
+   				newData[y][q] = Array( parseInt(Math.random()*countyRange), parseInt((Math.random()*stateRange)+countyRange));
+   			}
+   		}
+   		return newData
+   }
+</script>
+
+
+<body>
+
+<div id="wrapper">
+	<div id="slidercontrol" class="protovisButtons">
+	</div>
+	<div id="sliderwrap" class="protovisWrap">	
+	</div>
+	<div id="chart">
+		
+		<script type="text/javascript+protovis">
+		visSlide = new ProtoSliderBarTime(datakeys, dataTime, { 
+			slideControls: "#slidercontrol", slideDiv: "#sliderwrap",
+			dataLegend: dataLegend,
+			showTooltip: true, 
+			 labelX: "", labelY: "",
+			dataNotation: '$',  yScaleType: "linear", 
+			w: 720, h: 410, slideTimer: 1000 });
+ 		visSlide.groupInit();
+		</script>
+
+	</div>
+
+	<div id="addbars">
+		<input type=button value="+" onClick="$('#chart').ProtoSlider().slideAddBar();">
+		<input type=button value="-" onClick="$('#chart').ProtoSlider().slideRemoveBar();">
+	</div>
+</div>
+
+
+</body>
+</html>

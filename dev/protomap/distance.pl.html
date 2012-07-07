@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>Longitude Latitude Distance Calculation in Perl</title>
+	<link rel="stylesheet" type="text/css" href="highlight.css">
+</head>
+<body>
+<pre>
+
+<span class="com">#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  This routine calculates the distance between two points (given the     :::
+</span><span class="com">#:::  latitude/longitude of those points). It is being used to calculate     :::
+</span><span class="com">#:::  the distance between two ZIP Codes or Postal Codes using our           :::
+</span><span class="com">#:::  ZIPCodeWorld(TM) and PostalCodeWorld(TM) products.                     :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  Definitions:                                                           :::
+</span><span class="com">#:::    South latitudes are negative, east longitudes are positive           :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  Passed to function:                                                    :::
+</span><span class="com">#:::    lat1, lon1 = Latitude and Longitude of point 1 (in decimal degrees)  :::
+</span><span class="com">#:::    lat2, lon2 = Latitude and Longitude of point 2 (in decimal degrees)  :::
+</span><span class="com">#:::    unit = the unit you desire for results                               :::
+</span><span class="com">#:::           where: 'M' is statute miles                                   :::
+</span><span class="com">#:::                  'K' is kilometers (default)                            :::
+</span><span class="com">#:::                  'N' is nautical miles                                  :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  United States ZIP Code/ Canadian Postal Code databases with latitude   :::
+</span><span class="com">#:::  &amp; longitude are available at <a href="http://www.zipcodeworld.com">http://www.zipcodeworld.com</a>               :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  For enquiries, please contact sales@zipcodeworld.com                   :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  Official Web site: <a href="http://www.zipcodeworld.com">http://www.zipcodeworld.com</a>                         :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::  Hexa Software Development Center &#169; All Rights Reserved 2004            :::
+</span><span class="com">#:::                                                                         :::
+</span><span class="com">#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span>
+<span class="typ">$pi </span>= atan2(<span class="num">1</span>,<span class="num">1</span>) * <span class="num">4</span>;
+
+<span class="key">sub </span>distance {
+	<span class="key">my </span>(<span class="typ">$lat1</span>, <span class="typ">$lon1</span>, <span class="typ">$lat2</span>, <span class="typ">$lon2</span>, <span class="typ">$unit</span>) = @_;
+	<span class="key">my </span><span class="typ">$theta </span>= <span class="typ">$lon1 </span>- <span class="typ">$lon2</span>;
+	<span class="key">my </span><span class="typ">$dist </span>= sin(deg2rad(<span class="typ">$lat1</span>)) * sin(deg2rad(<span class="typ">$lat2</span>)) + cos(deg2rad(<span class="typ">$lat1</span>)) * cos(deg2rad(<span class="typ">$lat2</span>)) * cos(deg2rad(<span class="typ">$theta</span>));
+  <span class="typ">$dist  </span>= acos(<span class="typ">$dist</span>);
+  <span class="typ">$dist </span>= rad2deg(<span class="typ">$dist</span>);
+  <span class="typ">$dist </span>= <span class="typ">$dist </span>* <span class="num">60 </span>* <span class="num">1.1515</span>;
+  <span class="key">if </span>(<span class="typ">$unit </span><span class="key">eq </span><span class="str">&quot;K&quot;</span>) {
+  	<span class="typ">$dist </span>= <span class="typ">$dist </span>* <span class="num">1.609344</span>;
+  } <span class="key">elsif </span>(<span class="typ">$unit </span><span class="key">eq </span><span class="str">&quot;N&quot;</span>) {
+  	<span class="typ">$dist </span>= <span class="typ">$dist </span>* <span class="num">0.8684</span>;
+		}
+	<span class="key">return </span>(<span class="typ">$dist</span>);
+}
+
+<span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="com">#:::  This function get the arccos function using arctan function   :::
+</span><span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="key">sub </span>acos {
+	<span class="key">my </span>(<span class="typ">$rad</span>) = @_;
+	<span class="key">my </span><span class="typ">$ret </span>= atan2(sqrt(<span class="num">1 </span>- <span class="typ">$rad</span>**<span class="num">2</span>), <span class="typ">$rad</span>);
+	<span class="key">return </span><span class="typ">$ret</span>;
+}
+
+<span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="com">#:::  This function converts decimal degrees to radians             :::
+</span><span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="key">sub </span>deg2rad {
+	<span class="key">my </span>(<span class="typ">$deg</span>) = @_;
+	<span class="key">return </span>(<span class="typ">$deg </span>* <span class="typ">$pi </span>/ <span class="num">180</span>);
+}
+
+<span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="com">#:::  This function converts radians to decimal degrees             :::
+</span><span class="com">#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+</span><span class="key">sub </span>rad2deg {
+	<span class="key">my </span>(<span class="typ">$rad</span>) = @_;
+	<span class="key">return </span>(<span class="typ">$rad </span>* <span class="num">180 </span>/ <span class="typ">$pi</span>);
+}
+
+print distance(<span class="num">32.9697</span>, <span class="num">-96.80322</span>, <span class="num">29.46786</span>, <span class="num">-98.53506</span>, <span class="str">&quot;M&quot;</span>) . <span class="str">&quot; Miles</span><span class="esc">\n</span><span class="str">&quot;</span>;
+print distance(<span class="num">32.9697</span>, <span class="num">-96.80322</span>, <span class="num">29.46786</span>, <span class="num">-98.53506</span>, <span class="str">&quot;K&quot;</span>) . <span class="str">&quot; Kilometers</span><span class="esc">\n</span><span class="str">&quot;</span>;
+print distance(<span class="num">32.9697</span>, <span class="num">-96.80322</span>, <span class="num">29.46786</span>, <span class="num">-98.53506</span>, <span class="str">&quot;N&quot;</span>) . <span class="str">&quot; Nautical Miles</span><span class="esc">\n</span><span class="str">&quot;</span>;
+</pre>
+</body>
+</html>
+<!--HTML generated by highlight 2.0, http://www.andre-simon.de/-->

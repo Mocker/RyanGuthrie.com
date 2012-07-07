@@ -1,0 +1,82 @@
+{% extends "rg_frame.html" %}
+{% block sideblurb %}
+<ul style="list-style-type: none; color: #000; font-size: 1.1em;">
+
+<li>Web Development</li><li>Server Administration</li><li>Flash/HTML5 Game Development</li>
+</ul>
+{% endblock %}
+
+{% block HeaderTitle %}about Ryan Guthrie.com {% endblock %}
+
+{% block includes %}
+<style>
+#character_sheet_shadow {
+	margin-top: 30px;
+	-moz-box-shadow: 55px 5px 15px #ccc;
+  -webkit-box-shadow: 55px 5px 15px #ccc;
+  box-shadow: 55px 5px 15px #ccc;
+  width: 300px;
+  min-height: 400px;
+}
+#character_sheet {
+	margin-left: 50px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	width: 300px;
+	min-height: 400px;
+	padding: 5px;
+	/* IE10 */ 
+background-image: linear-gradient(right , rgb(250,250,250) 8%, rgb(112,112,112) 100%);
+background-image: -o-linear-gradient(right , rgb(250,250,250) 8%, rgb(112,112,112) 100%);
+background-image: -moz-linear-gradient(right , rgb(250,250,250) 8%, rgb(112,112,112) 100%);
+background-image: -webkit-linear-gradient(right , rgb(250,250,250) 8%, rgb(112,112,112) 100%);
+background-image: -ms-linear-gradient(right , rgb(250,250,250) 8%, rgb(112,112,112) 100%);
+
+background-image: -webkit-gradient(
+	linear,
+	right 1,
+	left 1,
+	color-stop(0.08, rgb(250,250,250)),
+	color-stop(1, rgb(112,112,112))
+);
+
+font-family: 'Palatino Linotype',Palatino;
+}
+img.profile {
+	float: left; 
+	border: 6px solid rgb(112,112,112);
+}
+
+p.profile {
+	text-align: left;
+	font-size: 0.8em;
+	
+}
+
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+<div id="character_sheet_shadow">
+<div id="character_sheet">
+	<img src="/site_media/images/prof_cam.png" class="profile" style="float: left; border: 6px solid rgb(112,112,112);">
+	<h2>About Me</h2>
+	<i>26 year old American currently living in Costa Rica</i><br>
+	<p class="profile">
+	<b>A brief bio:</b> I'm from Eugene, OR and recently moved to Costa Rica where I am currently living and working from. I grew up tinkering with computers, started making games in Visual Basic when I was 13 before moving on to Java and C++. I studied computer science briefly in college before diving into full time work.<br><br>
+	<b>Hobbies:</b> Seeing the world, learning classical guitar, gaming (particularly rpgs and mmo's), scifi books, learning bioinformatics ai and machine learning.<br><br>
+	<b>Favorite Games:</b> Mass Effect 2, Baldurs Gate, Tabula Rasa, Eve Online<br><br>
+	<b>Favorite Websites:</b>
+	<ul><li><a href='http://reddit.com/'>Reddit</a></li>
+	<li><a href='http://ludumdare.com'>LudumDare</a></li>
+	<li><a href='http://tigsource.com'>TigSource</a></li>
+	</ul>
+	</p>
+
+</div>
+</div>
+{% endblock %}
