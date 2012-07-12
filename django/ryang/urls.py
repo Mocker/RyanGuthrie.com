@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     (r'^resume','home.views.resume'),
     (r'^services','home.views.services'),
 	(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': 'e:/xampp2/htdocs/django/ryang/static'}),
+        {'document_root': 'e:\\dev\\django\\ryanguthrie\\django\\ryang\\static'}),
     # Examples:
     #url(r'^$', 'home.views.home', name='home'),
     # url(r'^ryang/', include('ryang.foo.urls')),

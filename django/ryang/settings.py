@@ -1,6 +1,6 @@
 # Django settings for ryang project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -12,7 +12,8 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/var/www/home/ryang/django/ryang.db',                      # Or path to database file if using sqlite3.
+        #'NAME': '/var/www/home/ryang/django/ryang.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'e:\\dev\\django\\ryanguthrie\\django\\ryang.db',
         'USER': 'ryang',                      # Not used with sqlite3.
         'PASSWORD': 'guthrie',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -55,7 +56,8 @@ USE_L10N = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 #MEDIA_ROOT = 'e:/xampp2/htdocs/django/static'
-MEDIA_ROOT = '/var/www/home/ryang/django/ryang/static'
+#MEDIA_ROOT = '/var/www/home/ryang/django/ryang/static'
+MEDIA_ROOT = 'e:/dev/django/ryanguthrie/django/ryang/static'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -114,7 +116,7 @@ ROOT_URLCONF = 'ryang.urls'
 
 TEMPLATE_DIRS = (
     "/var/www/home/ryang/django/rg_t",
-    "E:/xampp2/htdocs/django/rg_t"
+    "E:/dev/django/ryanguthrie/django/rg_t"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

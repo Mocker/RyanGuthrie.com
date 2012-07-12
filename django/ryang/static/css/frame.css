@@ -1,5 +1,7 @@
 body {
 background:#2A2626 url('/site_media/images/fishy_leftbar.png') fixed no-repeat;
+/*font-family: 'Simonetta', cursive; */
+font-family: 'Gentium Basic', serif;
 }
 
 #DV_OUTER_SHADOW {
@@ -41,7 +43,8 @@ background:#2A2626 url('/site_media/images/fishy_leftbar.png') fixed no-repeat;
 
 h1{
 	color: #59575a; font-size:2.5em; letter-spacing:-3px; margin:0; text-align:left;
-	font-family: "Georgia" ;
+	font-family: "Georgia" ; 
+	/*font-family: 'Gentium Basic', serif;*/
 		
 	}
 #DV_TITLE{
@@ -219,7 +222,7 @@ ul.topnav li span { /*--Drop down trigger styles--*/
 	max-height: 24px;
 	float: left;
 	margin: 0; padding: 0;
-	margin-top: 5px;
+	margin-top: 15px;
 	background: url(/site_media/images/subnav_btn1.png) no-repeat center top;
 	overflow: hidden;
 }
@@ -228,18 +231,18 @@ ul.topnav li ul.subnav {
 	list-style: none;
 	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
 	z-index: 450;
-	left: 0; top: 15px;
-	background-image: url('/site_media/images/shadow2.png');
+	left: 0; top: 20px;
+	/*background-image: url('/site_media/images/shadow2.png'); */
 	margin: 0; padding: 0;
 	display: none;
 	float: left;
 	width: 100px;
 	border: 1px solid #111;
-	/*
-	filter:alpha(opacity=40); 
-	opacity: 0.40;
+	background: #333;
+	filter:alpha(opacity=90); 
+	opacity: 0.90;
 	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src='/site_media/images/honey.png');
-	*/
+	
 }
 ul.topnav li ul.subnav li{
 	margin: 0; padding: 0;
@@ -247,23 +250,25 @@ ul.topnav li ul.subnav li{
 	border-bottom: 1px solid #444; /*--Create bevel effect--*/
 	clear: both;
 	width: 100px;
-	color: #034;
+	/*color: #034; */
+	color: #ccc;
 	height: 26px;
-	font-family: "Times New Roman";
+	/*font-family: "Times New Roman";*/
 	font-size: 1.1em;
 	overflow: hidden;
 	vertical-align: middle;
 	/* width: 170px; */
 }
 html ul.topnav li ul.subnav li a {
-	color: #034;
+	color: #cdf;
 	float: left;
 	/*background: #333 url(/site_media/images/dropdown_linkbg.gif) no-repeat 10px center; */
 	padding-left: 10px;
 }
 html ul.topnav li ul.subnav li:hover { /*--Hover effect for subnav links--*/
+	background: #111;
 	/*background: #222 url(/site_media/images/dropdown_linkbg.gif) no-repeat 10px center; */
-	background-image: url(/site_media/images/shadow2.png) ;
+	/* background-image: url(/site_media/images/shadow2.png) ; */
 }
 
 ul.subnav_right  {

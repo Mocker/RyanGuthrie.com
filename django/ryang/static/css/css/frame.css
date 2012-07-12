@@ -224,7 +224,8 @@ ul.topnav li ul.subnav {
 	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
 	z-index: 450;
 	left: 0; top: 15px;
-	background-image: url('/static/images/shadow1.png');
+	/*background-image: url('/static/images/shadow1.png');*/
+	background: #ffff00;
 	margin: 0; padding: 0;
 	display: none;
 	float: left;
