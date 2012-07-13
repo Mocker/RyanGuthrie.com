@@ -210,7 +210,7 @@ def portfolio(request):
 			
 		}
 	]	
-	return render_to_response('portfolio.html',{
+	return render_to_response('showcase.html',{
 		'portfolio':fake_model, 
 		'portfolio_size': len(fake_model)*115
 		})
@@ -338,3 +338,53 @@ def projects(request):
 	'projects':fake_model, 
 	'projects_size': len(fake_model)*115
 	})
+
+def showcase(request):
+	fake_model = [
+		{	"title":'Web Sites',
+			"projects": [
+			{
+				"title":"RyanGuthrie.com",
+				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
+			},
+			{
+				"title":"Free Photo Project",
+				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
+			},
+			]
+		},
+		{	"title":'Games',
+			"projects": [
+			{
+				"title":"RyanGuthrie.com",
+				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
+			},
+			{
+				"title":"Free Photo Project",
+				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
+			},
+			]
+		},
+		{	"title":'Misc',
+			"projects": [
+			{
+				"title":"RyanGuthrie.com",
+				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
+			},
+			{
+				"title":"Free Photo Project",
+				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
+			},
+			]
+		},
+		]
+	return render_to_response('showcase.html',{
+	'showcase':fake_model, 
+	'projects_size': len(fake_model)*115
+	})
+
+
+def projectData(request):
+	msg = '';
+
+	return HttpResponse(msg)
