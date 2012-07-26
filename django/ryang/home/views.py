@@ -2,7 +2,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.core.mail import send_mail
-import smtplib, sys
+from django.core import serializers
+from home.models import Project, ProjectCategory
+
+import smtplib, sys, json
 
 def index(request):
     #return HttpResponse("Hello, world. You're at the poll index.")
@@ -340,47 +343,35 @@ def projects(request):
 	})
 
 def showcase(request):
-	fake_model = [
-		{	"title":'Web Sites',
-			"projects": [
-			{
-				"title":"RyanGuthrie.com",
-				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
-			},
-			{
-				"title":"Free Photo Project",
-				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
-			},
-			]
-		},
-		{	"title":'Games',
-			"projects": [
-			{
-				"title":"RyanGuthrie.com",
-				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
-			},
-			{
-				"title":"Free Photo Project",
-				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
-			},
-			]
-		},
-		{	"title":'Misc',
-			"projects": [
-			{
-				"title":"RyanGuthrie.com",
-				"thumbSrc":"/site_media/images/portfolio/rg_icon.png"
-			},
-			{
-				"title":"Free Photo Project",
-				"thumbSrc":"/site_media/images/portfolio/freephoto_icon.png"
-			},
-			]
-		},
-		]
+	
+	projects = dict()
+	
+	projectsAll = Project.objects.all()
+	for proj in projectsAll:
+		projects[proj.strID] = {
+			"title":proj.title,
+			"strID": proj.strID,
+			"thumbSrc": proj.thumbSrc,
+			"description": proj.description,
+			"gitURL": proj.gitURL,
+			"webURL": proj.webURL,
+		}
+	projectJSON = json.dumps(projects)
+	#projectJSON = serializers.serialize("json",projects)
+	projectCats = ProjectCategory.objects.all()
+	projectDB = list()
+	for cat in projectCats:
+		catObj = {
+			"title": cat.title,
+			"projects" : Project.objects.filter(project_category=cat),
+		}
+		projectDB.append(catObj)
+		#print cat.title + "-" + catObj.projects
+
 	return render_to_response('showcase.html',{
-	'showcase':fake_model, 
-	'projects_size': len(fake_model)*115
+	'projectDB': projectDB,
+	'projects':projects,
+	'projectJSON':projectJSON,
 	})
 
 

@@ -70,6 +70,10 @@
 <script type="text/javascript">
 	$(function() {
                 $('#rotate > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 4000);
+                $('#rotate').click(function(){
+                	$('#rotate > ul').tabs('rotate',null);
+                });
+
             });
 
 
