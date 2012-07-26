@@ -42,6 +42,7 @@
 				console.log(imgObj); console.log(imgObj.alt);
 				if(projects[imgObj.alt]['description']){
 					$('#projectContent').html(projects[imgObj.alt]['description']);
+					$('#projectContent > a.lightbox').lightBox(); 
 				}
 				else if(projects[imgObj.alt]['title']){
 					$('#projectContent').html('<h2>'+projects[imgObj.alt]['title']+'</h2>');
@@ -69,6 +70,7 @@ function displayProject(projID){
 				if(!projects[projID]) return;
 				if(projects[projID]['description']){
 					$('#projectContent').html(projects[projID]['description']);
+					$('#projectContent > a.lightbox').lightBox(); 
 				}
 				else if(projects[projID]['title']){
 					$('#projectContent').html('<h2>'+projects[projID]['title']+'</h2>');
@@ -148,6 +150,17 @@ function startSpiral(){
 		right: -15px;
 		z-index: 2000;
 	}
+	#projectContent {
+		text-align: left;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	#projectContent img{
+		float: left;
+		margin-right: 10px;
+		border-right: 1px solid black;
+		border-bottom: 1px solid black;
+	}
 </style>
 
 {% endblock %}
@@ -157,8 +170,8 @@ function startSpiral(){
 <div id='dvSpiral' style='display: none; background: #2A2626; border: 2px solid black; width: 500px; min-height: 300px;'>
 <!--<script type="text/javascript" src="http://jsdo.it/blogparts/xPAH/js"></script>-->
 </div>
-<h1>Portfolio</h1>
-<p>Here are a few case studies of sites I have worked on. Choose one for more details.</p>
+<h1>Portfolio & Projects</h1>
+<p>Here are a samping of websites, games and other projects I have developed. If you have any questions regarding them feel free to send me a message.</p>
 <div id="slider">
 
     {% for s in projectDB %}
@@ -187,7 +200,7 @@ function startSpiral(){
 	
 <div id='projectBox' >
 	<div class='projectClose'><input type='button' value='x' onClick='$("#projectContainer").hide();'></div>
-	<span id='projectContent'></span>
+	<div id='projectContent'></div>
 </div>
 </div>
 

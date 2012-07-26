@@ -1,0 +1,16 @@
+import os
+import sys
+
+path = 'e:/dev/django/ryanguthrie/django'
+if path not in sys.path:
+	sys.path.append(path)
+path = 'e:/dev/django/ryanguthrie/django/ryang'
+if path not in sys.path:
+	sys.path.append(path)
+
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ryang.settings'
+
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
+

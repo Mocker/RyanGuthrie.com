@@ -15,14 +15,15 @@
 	-moz-box-shadow: 55px 5px 15px #ccc;
   -webkit-box-shadow: 55px 5px 15px #ccc;
   box-shadow: 55px 5px 15px #ccc;
-  width: 300px;
+  width: 80%;
   min-height: 400px;
 }
 #character_sheet {
 	margin-left: 50px;
 	-moz-border-radius: 15px;
-	border-radius: 15px;
-	width: 300px;
+	border-radius: 10px;
+	border: 2px solid #003366;
+	width: 90%;
 	min-height: 400px;
 	padding: 5px;
 	/* IE10 */ 
@@ -45,6 +46,7 @@ background-image: -webkit-gradient(
 img.profile {
 	float: left; 
 	border: 6px solid rgb(112,112,112);
+	margin-right: 10px;
 }
 
 p.profile {
@@ -63,9 +65,11 @@ p.profile {
 {% block content %}
 <div id="character_sheet_shadow">
 <div id="character_sheet">
-	<img src="/site_media/images/prof_cam.png" class="profile" style="float: left; border: 6px solid rgb(112,112,112);">
+	<img src="/site_media/images/profile.jpg" class="profile" style="float: left; border: 6px solid rgb(112,112,112);">
 	<h2>About Me</h2>
-	<i>26 year old American currently living in Costa Rica</i><br>
+	<p style='text-align: left;'>27 year old American currently living in Playa Del Carmen, Mexico</p>
+	<br>
+	<hr>
 	<p class="profile">
 	<b>A brief bio:</b> I'm from Eugene, OR and recently moved to Costa Rica where I am currently living and working from. I grew up tinkering with computers, started making games in Visual Basic when I was 13 before moving on to Java and C++. I studied computer science briefly in college before diving into full time work.<br><br>
 	<b>Hobbies:</b> Seeing the world, learning classical guitar, gaming (particularly rpgs and mmo's), scifi books, learning bioinformatics ai and machine learning.<br><br>
