@@ -1,7 +1,0 @@
-[paths]
-default = https://SokerCap@bitbucket.org/SokerCap/getxp
-
-
-[tortoisehg]
-postpull = none
-autoresolve = False
