@@ -42,7 +42,7 @@
 				console.log(imgObj); console.log(imgObj.alt);
 				if(projects[imgObj.alt]['description']){
 					$('#projectContent').html(projects[imgObj.alt]['description']);
-					$('#projectContent > a.lightbox').lightBox(); 
+					$('a.lightbox').lightBox(); 
 				}
 				else if(projects[imgObj.alt]['title']){
 					$('#projectContent').html('<h2>'+projects[imgObj.alt]['title']+'</h2>');
@@ -70,7 +70,7 @@ function displayProject(projID){
 				if(!projects[projID]) return;
 				if(projects[projID]['description']){
 					$('#projectContent').html(projects[projID]['description']);
-					$('#projectContent > a.lightbox').lightBox(); 
+					$('a.lightbox').lightBox(); 
 				}
 				else if(projects[projID]['title']){
 					$('#projectContent').html('<h2>'+projects[projID]['title']+'</h2>');
@@ -99,6 +99,8 @@ function startSpiral(){
 			
 </script>
 <style type="text/css">
+	#jquery-lightbox { z-index: 450; }
+	#jquery-overlay { z-index: 400; }
 	#slider { max-height: 250px; }
 	#projectBox {
 		position: relative;
