@@ -1,0 +1,10 @@
+Green Wyrmling
+Was killed by a giant rat after 175 turns.
+Scored 137 points.
+Strength: 1, Stamina: 1, Will: 2.
+Abilities gained: 
+ Line Breath.
+12 enemies were killed:
+  6 cave bears
+  4 earth gnomes
+  2 giant rats

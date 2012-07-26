@@ -1,0 +1,179 @@
+<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/r44/build/Three.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/r44/examples/js/RequestAnimationFrame.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/r44/examples/js/Detector.js"></script>
+		<script type="text/javascript" src="https://raw.github.com/mrdoob/three.js/r44/examples/js/Stats.js"></script>
+<script type="text/javascript" src="/site_media/js/spiralGL.js"></script>
+
+{% extends "rg_frame.html" %}
+{% block sideblurb %}
+<ul style="list-style-type: none; color: #000; font-size: 1.1em;">
+
+<li>Web Development</li><li>Server Administration</li><li>Flash/HTML5 Game Development</li>
+</ul>
+{% endblock %}
+
+{% block HeaderTitle %}portfolio @ Ryan Guthrie.com {% endblock %}
+
+{% block includes %}
+
+<script src="/site_media/js/ui.core.js" type="text/javascript"></script>
+<script src="/site_media/js/ui.tabs.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/site_media/css/ui.tabs.css" type="text/css" />
+<script src="/site_media/js/jquery.lightbox-0.5.pack.js" type="text/javascript" ></script>
+<link rel="stylesheet" href="/site_media/css/jquery.lightbox-0.5.css" media="screen" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/site_media/css/jquery.slider.css" media="all">
+<script type="text/javascript" src="/site_media/js/jquery.slider.min.js"></script>
+<script type="text/javascript">
+
+	var projects = {% autoescape off %}{{ projectJSON }}{% endautoescape %};
+	var selectedProject = 'none';
+	
+	$(document).ready( function(){
+
+			//spiralGL('dvSpiral', projects);
+			$('#slider').slider({'autoplay':false});
+			$('.project_box').hide();
+			$('.project_title').click( function(){
+				console.log("project title clicked"); console.log(this);
+				$(this).parent().find('.project_box').slideToggle('normal');
+			});
+			$('.slide img').click(function(obj){
+				var imgObj = obj.target;
+				console.log(imgObj); console.log(imgObj.alt);
+				if(projects[imgObj.alt]['description']){
+					$('#projectContent').html(projects[imgObj.alt]['description']);
+				}
+				else if(projects[imgObj.alt]['title']){
+					$('#projectContent').html('<h2>'+projects[imgObj.alt]['title']+'</h2>');
+				}
+				else { 
+					console.log("didn't find project "+imgObj.alt);
+					return; }
+				$("#projectContainer").show();
+				$("#projectBox").css('opacity','0');
+				$( "#projectBox" ).css('marginTop',0 - $( "#projectBox" ).height() ) ;
+				$( "#projectBox" ).animate({
+					  marginTop: '140px',opacity: 1, 
+					}, "fast", function() {
+						//oncomplete
+					} );
+			});
+
+			$('#projOverlay').click(function(){
+				$("#projectContainer").hide();
+			});
+
+	});
+	
+function startSpiral(){
+	$('#dvSpiral').toggle();
+	spiralGL('dvSpiral', projects);
+	
+}
+			
+</script>
+<style type="text/css">
+	#slider { max-height: 250px; }
+	#projectBox {
+		position: relative;
+		width: 700px;
+		min-height: 200px;
+		margin: 120px auto;
+		z-index: 999;
+		background-color: #ffffff;
+		border: 2px outset black;
+		clear: both;
+		/* cross browser opacity 
+		-khtml-opacity:1; -moz-opacity:1; -ms-filter:”alpha(opacity=100)”; filter:alpha(opacity=100); opacity:1; 
+		*/
+	}
+	#projectContainer {
+		position: fixed;
+		top: 0; left: 0;
+		z-index: 700;
+		display: none;
+		width: 100%;
+		height: 100%;
+		min-height: 800px;
+		clear: both;
+		
+	}
+	#projOverlay {
+		/* cross browser opacity */
+		clear: both;
+		position: absolute;
+		z-index: 700;
+		width: 100%;
+		height: 100%; top: 0; left: 0;
+		background-color: #000000;
+		-khtml-opacity:.50; -moz-opacity:.50; -ms-filter:”alpha(opacity=50)”; filter:alpha(opacity=50); opacity:.50; 
+	}
+	div.slideItem {
+		float: left;
+		max-height: 180px;
+		max-width: 100px;
+		overflow: none;
+	}
+	div.slideItem img{
+		max-width: 80px;
+		max-height: 80px;
+	}
+	div.projectClose {
+		float: right;
+		top: -15px;
+		right: -15px;
+		z-index: 2000;
+	}
+</style>
+
+{% endblock %}
+
+{% block content %}
+<input type='button' onClick='startSpiral();' value='Load WebGL Portfolio'>
+<div id='dvSpiral' style='display: none; background: #2A2626; border: 2px solid black; width: 500px; min-height: 300px;'>
+<!--<script type="text/javascript" src="http://jsdo.it/blogparts/xPAH/js"></script>-->
+</div>
+<h1>Portfolio</h1>
+<p>Here are a few case studies of sites I have worked on. Choose one for more details.</p>
+<div id="slider">
+
+    {% for s in projectDB %}
+    
+    	<div class="slide">
+    		<h2>{{ s.title }}</h2>
+    		{% for p in s.projects %}
+    		<div class='slideItem'>
+	    		<!--<a href='{{ p.thumbSrc }}' class='lightbox'>-->
+	    			<img src="{{ p.thumbSrc }}" alt="{{ p.strID }}">
+	    		
+	    		<div class='caption'>
+	    			{{ p.title }}
+	    		</div>
+    		</div>
+    		{% endfor %}
+    		<div style='clear: both;'></div>
+    	</div>
+    {% endfor %}
+
+ 	
+</div>
+
+<div id='projectContainer'>
+<div id="projOverlay"></div>
+	
+<div id='projectBox' >
+	<div class='projectClose'><input type='button' value='x' onClick='$("#projectContainer").hide();'></div>
+	<span id='projectContent'></span>
+</div>
+</div>
+
+
+<script type="text/javascript">
+	$(function() {
+		$('a.lightbox').lightBox(); 
+	});
+</script>	
+
+
+
+{% endblock %}
