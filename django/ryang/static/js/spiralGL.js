@@ -11,6 +11,7 @@ var spiralGL = function(canvasID, projs) {
      windowHalfX = window.innerWidth / 2,
      windowHalfY = window.innerHeight / 2,
      ray, mouse3D, brush, projector,
+     container, projCubes = [],
      projects = projs, conW=0,conH=0,
      camera, scene, renderer, assets = new Object();
     console.log(projects);
@@ -18,14 +19,14 @@ var spiralGL = function(canvasID, projs) {
 
      var main = function() {
         if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-              
+        console.log('main called');
         init();
         animate();
     };
     
     var init = function() {  
         //var container = $('#'+cID);
-        var container = document.getElementById(cID);
+        container = document.getElementById(cID);
         console.log(container);
         var win = window;
         conW = container.offsetWidth;
@@ -42,6 +43,8 @@ var spiralGL = function(canvasID, projs) {
         //window.innerWidth innerHeight
         renderer.setSize( container.offsetWidth, container.offsetHeight );
         container.appendChild( renderer.domElement );
+        console.log("renderer");
+        console.log(renderer);
         projector = new THREE.Projector();
         ray = new THREE.Ray( camera.position, null );
         loadMaterials();
@@ -66,6 +69,7 @@ var spiralGL = function(canvasID, projs) {
         var degree = loops * 360 / (objsQty*1);
         var startI = 10;
         var projKeys = Object.keys(projects);
+
         
         for (var i = startI; i < objsQty; i++) {
             var posX = centerX + ((radius * i * 0.3) * Math.cos(degToRad(degree * i)));
@@ -75,13 +79,15 @@ var spiralGL = function(canvasID, projs) {
             var ratio = i / objsQty; 
             color = fadeHex(startHex, endHex, ratio);
             
-            var mat = false;
+            var mat = false, projID = false;
             if(i < projKeys.length + startI){
                 mat = assets.projMaterials[projKeys[i-10]];
+                projID = projKeys[i-10];
                 console.log("loading project mat for "+projKeys[i-10]);
                 console.log(mat);
             }
-            var sphere = drawSphere(color, posX, newPosY, posZ,mat);                   
+            var sphere = drawSphere(color, posX, newPosY, posZ,mat,projID);
+            projCubes.push(sphere);                   
             //posY -= 1;
             
             // add the sphere to the scene
@@ -160,7 +166,7 @@ var spiralGL = function(canvasID, projs) {
        
     };
     
-    var drawSphere = function(color, x, y, z,mat) {
+    var drawSphere = function(color, x, y, z,mat,projID) {
         // create the sphere's material
         var sphereMaterial = new THREE.MeshLambertMaterial(
         {
@@ -182,7 +188,8 @@ var spiralGL = function(canvasID, projs) {
         sphereMaterial = assets.imgMaterial;
         if(mat) sphereMaterial = mat;
         var sphere = new THREE.Mesh( new THREE.CubeGeometry( cubesize, cubesize, cubesize ),  sphereMaterial);
-       
+        if(projID) sphere['projID'] = projID;
+
         sphere.position.x = x;
         sphere.position.y = y;
         sphere.position.z = z;
@@ -247,20 +254,43 @@ var spiralGL = function(canvasID, projs) {
 
                     event.preventDefault();
 
-                    mouse3D = projector.unprojectVector( new THREE.Vector3( ( event.clientX / renderer.domElement.width ) * 2 - 1, - ( event.clientY / renderer.domElement.height ) * 2 + 1, 0.5 ), camera );
-                    ray.direction = mouse3D.subSelf( camera.position ).normalize(); 
-                    console.log("click"); console.log(ray);
+                    
+          var evt = event;
+          var mouseX    = evt.offsetX || evt.clientX,
+          mouseY    = evt.offsetY || evt.clientY;
+          projector = new THREE.Projector();
+ 
+          // set up a new vector in the correct
+          // coordinates system
+          var vector    = new THREE.Vector3(
+             (mouseX / container.offsetWidth) * 2 - 1,
+            -(mouseY / container.offsetHeight) * 2 + 1,
+             0.5);
+         
+          // now "unproject" the point on the screen
+          // back into the the scene itself. This gives
+          // us a ray direction
+          projector.unprojectVector(vector, camera);
+         
+          // create a ray from our current camera position
+          // with that ray direction and see if it hits the sphere
+          ray     = new THREE.Ray(camera.position, vector.subSelf(camera.position).normalize()),
+          intersects  = ray.intersectObjects(projCubes);
+         
+          // if the ray intersects with the
+          // surface work out where and distort the face
+          if(intersects.length) {
+            //displaceFace(intersects[0].face, DISPLACEMENT);
+            //console.log("INTERSECTS");
+            //console.log(intersects[0]);
+            if(intersects[0]['object'] && intersects[0]['object']['projID']){
+                if(displayProject) displayProject(intersects[0]['object']['projID']) ;  
+            }
 
-                    var intersect, intersects = ray.intersectScene( scene );
-                    console.log(intersect); console.log(intersects);
-                    if ( intersects.length > 0 ) {
-                        intersect = intersects[ 0 ].object ==  intersects[ 0 ];
-                        if ( intersect &&  intersect.object != plane ) {
-                            console.log("Interect!"); console.log(intersect.object);
-                        }
-                    }
+          }
+        
+
     };
-
     
     var animate = function() {
         requestAnimationFrame( animate );
