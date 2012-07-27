@@ -27,6 +27,7 @@
 
 	var projects = {% autoescape off %}{{ projectJSON }}{% endautoescape %};
 	var selectedProject = 'none';
+	var portfolioSpiral;
 	
 	$(document).ready( function(){
 
@@ -76,6 +77,10 @@
 
 	});
 
+function fullScreenSpiral(){
+
+}
+
 function displayProject(projID){
 				if(!projects[projID]) return;
 				if(projects[projID]['description']){
@@ -113,8 +118,9 @@ function getHashParams() {
 
 
 function startSpiral(){
+	$('#dvLoadSpiral').slideUp();
 	$('#dvSpiral').toggle();
-	spiralGL('dvSpiral', projects);
+	portfolioSpiral = spiralGL('dvSpiral', projects);
 	
 }
 			
@@ -184,12 +190,20 @@ function startSpiral(){
 		border-right: 1px solid black;
 		border-bottom: 1px solid black;
 	}
+	#dvLoadSpiral {
+		text-align: center;
+		width: 400px;
+		background: black;
+		color: white;
+		border: 2px inset gray;
+		min-height: 30px;
+	}
 </style>
 
 {% endblock %}
 
 {% block content %}
-<input type='button' onClick='startSpiral();' value='Load WebGL Portfolio'>
+<div id='dvLoadSpiral' onClick='startSpiral();'>Start 3D Portfolio Visualization<br><i>*Requires WebGL Compatible Browser</i></div>
 <div id='dvSpiral' style='display: none; background: #2A2626; border: 2px solid black; width: 500px; min-height: 300px;'>
 <!--<script type="text/javascript" src="http://jsdo.it/blogparts/xPAH/js"></script>-->
 </div>

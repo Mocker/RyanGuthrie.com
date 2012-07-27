@@ -1,10 +1,7 @@
 // forked from cezinha's "3D Geometry Experience (Spiral)" http://jsdo.it/cezinha/nVUM
 // modified by Ryan Guthrie to form interactive gallery with textures mapped onto spiral and clickable actions to display them
 var spiralGL = function(canvasID, projs) {
-    /**
-     * Following Aerotwist Tutorial
-     * http://www.aerotwist.com/lab/getting-started-with-three-js/
-     */
+  
      // globals variables
      var mouseX = 0, mouseY = 0,
      cID = canvasID, fishyPlane,
@@ -12,10 +9,9 @@ var spiralGL = function(canvasID, projs) {
      windowHalfY = window.innerHeight / 2,
      ray, mouse3D, brush, projector,
      container, projCubes = [],
+     fsButton, isFullScreen = false, origW, origH,
      projects = projs, conW=0,conH=0,
      camera, scene, renderer, assets = new Object();
-    console.log(projects);
-    console.log(windowHalfX+" by "+windowHalfY);
 
      var main = function() {
         if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
@@ -27,12 +23,10 @@ var spiralGL = function(canvasID, projs) {
     var init = function() {  
         //var container = $('#'+cID);
         container = document.getElementById(cID);
-        console.log(container);
+        if(!container){ console.log("Error: unable to find container element"); return; }
         var win = window;
-        conW = container.offsetWidth;
-        conH = container.offsetHeight;
-        //container = document.createElement('div');
-        //document.body.appendChild(container);
+        origW = conW = container.offsetWidth;
+        origH = conH = container.offsetHeight;
         // cam y win.innerWidth / win.innerHeight
         camera = new THREE.Camera( 45, conW / conH, 0.1, 10000 );
         camera.position.z = 400;
@@ -42,9 +36,19 @@ var spiralGL = function(canvasID, projs) {
         renderer = new THREE.WebGLRenderer();
         //window.innerWidth innerHeight
         renderer.setSize( container.offsetWidth, container.offsetHeight );
+
+        fsButton = document.createElement('div');
+        fsButton.style.width = '100px';
+        fsButton.style.height = '25px';
+        fsButton.style.border = '2px solid white;'
+        fsButton.style.background = '#222222';
+        fsButton.style.color = 'white';
+        fsButton.innerHTML = 'FullScreen';
+        fsButton.style.float = 'right';
+        
+
+        container.appendChild(fsButton);
         container.appendChild( renderer.domElement );
-        console.log("renderer");
-        console.log(renderer);
         projector = new THREE.Projector();
         ray = new THREE.Ray( camera.position, null );
         loadMaterials();
@@ -112,7 +116,8 @@ var spiralGL = function(canvasID, projs) {
 				directionalLight2.position.set( -50, -80, 100 ).normalize();
 				scene.addLight( directionalLight2 );
 
-        container.addEventListener( 'click', onClick, false );
+        fsButton.addEventListener('click', doFullScreen ,false);
+        renderer.domElement.addEventListener( 'click', onClick, false );
         document.addEventListener( 'mousemove', onDocumentMouseMove, false );
         document.addEventListener( 'touchstart', onDocumentTouchStart, false );
         document.addEventListener( 'touchmove', onDocumentTouchMove, false );  
@@ -142,13 +147,11 @@ var spiralGL = function(canvasID, projs) {
             imgTexture.repeat.set( 4, 2 );
             imgTexture.wrapS = imgTexture.wrapT = THREE.RepeatWrapping;  
             assets.imgTexture = imgTexture;
-            console.log("loaded image texture"); console.log(assets.imgTexture);
             var shininess = 15, shading = THREE.SmoothShading;
             //assets.imgMaterial = new THREE.MeshPhongMaterial( { map: assets.imgTexture, color: 0x000000, ambient: 0x000000, specular: 0xffaa00, shininess: shininess, metal: true, shading: shading } );
             assets.imgMaterial  = new THREE.MeshLambertMaterial({
             map: THREE.ImageUtils.loadTexture(imgURL)
        		 });
-            console.log(assets.imgMaterial);
         }
         var fishURL = '/site_media/images/fishy_leftbar.jpg';
         assets.fishMaterial  = new THREE.MeshLambertMaterial({
@@ -250,15 +253,46 @@ var spiralGL = function(canvasID, projs) {
         }
     };
 
+    var doFullScreen = function( event ) {
+        console.log("Do fullscreen");
+        if(!isFullScreen){
+            fsButton.innerHTML = 'Minimize';
+            container.style.position = "fixed";
+            container.style.width = "100%";
+            container.style.height = "100%";
+            container.style.zIndex = 99;
+            container.style.left = 0;
+            container.style.top = 0;
+            renderer.domElement.style.width = "100%";
+            renderer.domElement.style.height = "90%";
+            renderer.setSize( container.offsetWidth, container.offsetHeight );
+            isFullScreen = true;
+        }
+        else {
+            fsButton.innerHTML = 'FullScreen';
+            container.style.position = "relative";
+            container.style.width = "500px";
+            container.style.height = "300px";
+            renderer.domElement.style.width = "100%";
+            renderer.domElement.style.height = "90%";
+            renderer.setSize( container.offsetWidth, container.offsetHeight );
+            isFullScreen = false;
+        }
+    }
+
     var onClick = function( event ) {
-
                     event.preventDefault();
-
-                    
-          var evt = event;
-          var mouseX    = evt.offsetX || evt.clientX,
-          mouseY    = evt.offsetY || evt.clientY;
-          projector = new THREE.Projector();
+        var evt = event;
+         var mouseX = evt.offsetX;
+         if (mouseX == undefined) {
+             mouseX = evt.clientX - $(evt.target).offset().left;
+         }
+         var mouseY = evt.offsetY;
+         if (mouseY == undefined) {
+             mouseY = evt.clientY - $(evt.target).offset().top+30; //clientY-offset.top seems to overshoot 
+         }
+              
+          var projector = new THREE.Projector();
  
           // set up a new vector in the correct
           // coordinates system
@@ -266,7 +300,6 @@ var spiralGL = function(canvasID, projs) {
              (mouseX / container.offsetWidth) * 2 - 1,
             -(mouseY / container.offsetHeight) * 2 + 1,
              0.5);
-         
           // now "unproject" the point on the screen
           // back into the the scene itself. This gives
           // us a ray direction
@@ -288,6 +321,7 @@ var spiralGL = function(canvasID, projs) {
             }
 
           }
+          else { console.log("no intersects");}
         
 
     };
@@ -308,4 +342,5 @@ var spiralGL = function(canvasID, projs) {
     };
     
     main();
+
 };
