@@ -289,7 +289,7 @@ var spiralGL = function(canvasID, projs) {
          }
          var mouseY = evt.offsetY;
          if (mouseY == undefined) {
-             mouseY = evt.clientY - $(evt.target).offset().top+45; //clientY-offset.top seems to overshoot 
+             mouseY = evt.clientY - $(evt.target).offset().top + 15; //clientY-offset.top seems to overshoot 
          }
               
           var projector = new THREE.Projector();

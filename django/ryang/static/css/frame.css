@@ -85,7 +85,7 @@ h1{
 	valign: top;
 	float: left;
 	margin: 0px;
-	z-index: 80;
+	
 	background-color: #fff;
 	padding-left: 10px;
 	
@@ -180,13 +180,13 @@ ul.menu_plain {
 	margin: 0;
 	float: left;
 	font-size: 0.8em;
-	z-index: 500;
+	z-index: 50;
 }
 ul.menu_plain li {
 	float: left;
 	margin: 0;
 	padding: 0 10px 0 0;
-	z-index: 300;
+	z-index: 30;
 	position: relative;
 }
 
@@ -198,7 +198,7 @@ ul.topnav {
 	width: 100%;
 	height: 20px;
 	font-size: 0.8em;
-	z-index: 300;
+	z-index: 40;
 }
 ul.topnav li {
 	float: left;
@@ -207,14 +207,14 @@ ul.topnav li {
 	width: 80px;
 	height: 20px;
 	position: relative; /*--Declare X and Y axis base for sub navigation--*/
-	z-index: 300;
+	z-index: 40;
 }
 ul.topnav li a{
 	padding: 0px;
 	/* display: block; */
 	text-decoration: none;
 	float: left;
-	z-index: 300;
+	z-index: 40;
 }
 
 ul.topnav li span { /*--Drop down trigger styles--*/
@@ -226,13 +226,13 @@ ul.topnav li span { /*--Drop down trigger styles--*/
 	margin-top: 15px;
 	background: url(/site_media/images/subnav_btn1.png) no-repeat center top;
 	overflow: hidden;
-	z-index: 300;
+	z-index: 40;
 }
 ul.topnav li span.subhover { background-position: center bottom; cursor: pointer;} /*--Hover effect for trigger--*/
 ul.topnav li ul.subnav {
 	list-style: none;
 	position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
-	z-index: 350;
+	z-index: 50;
 	left: 0; top: 20px;
 	/*background-image: url('/site_media/images/shadow2.png'); */
 	margin: 0; padding: 0;
@@ -258,7 +258,7 @@ ul.topnav li ul.subnav li{
 	overflow: hidden;
 	vertical-align: middle;
 	/* width: 170px; */
-	z-index: 350;
+	z-index: 50;
 }
 ul.topnav img { z-index: 350; }
 html ul.topnav li ul.subnav li a {
@@ -284,7 +284,7 @@ ul.subnav_right  {
 	top: 15px;
 	width: 100px;
 	list-style: none;
-	z-index: 350;
+	z-index: 50;
 }
 ul.subnav_right li {
 	width: 80px; float: left; padding-left: 20px;
