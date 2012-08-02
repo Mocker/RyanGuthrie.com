@@ -128,7 +128,7 @@ function startSpiral(){
 <style type="text/css">
 	#jquery-lightbox { z-index: 450; }
 	#jquery-overlay { z-index: 400; }
-	#slider { max-height: 250px; }
+	#slider { max-height: 450px; }
 	#projectBox {
 		position: relative;
 		width: 700px;
@@ -164,14 +164,15 @@ function startSpiral(){
 		-khtml-opacity:.50; -moz-opacity:.50; -ms-filter:”alpha(opacity=50)”; filter:alpha(opacity=50); opacity:.50; 
 	}
 	div.slideItem {
+		padding-left: 15px;
 		float: left;
-		max-height: 180px;
-		max-width: 100px;
-		overflow: none;
+		height: 120px;
+		max-width: 146px;
+		overflow: hidden;
 	}
 	div.slideItem img{
-		max-width: 80px;
-		max-height: 80px;
+		height: 80px;
+		width: 146px;
 	}
 	div.projectClose {
 		float: right;
@@ -191,21 +192,25 @@ function startSpiral(){
 		border-bottom: 1px solid black;
 	}
 	#dvLoadSpiral {
+		margin: auto;
 		text-align: center;
 		width: 400px;
-		background: black;
+		background: #101010;
 		color: white;
 		border: 2px inset gray;
 		min-height: 30px;
+		cursor:pointer;
+		margin-bottom: 25px;
 	}
 </style>
 
 {% endblock %}
 
 {% block content %}
-<div id='dvLoadSpiral' onClick='startSpiral();'>Start 3D Portfolio Visualization<br><i>*Requires WebGL Compatible Browser</i></div>
+<div id='dvLoadSpiral' onClick='startSpiral();'>Start 3D Portfolio Visualization<br><i>*Requires a <a href='http://www.google.com/chrome'>WebGL Compatible Browser</a></i></div>
 <div id='dvSpiral' style='display: none; background: #2A2626; border: 2px solid black; width: 500px; min-height: 300px;'>
-<!--<script type="text/javascript" src="http://jsdo.it/blogparts/xPAH/js"></script>-->
+ <div style='float: left; color: white;'><a href='http://github.com/Mocker/RyanGuthrie.com/blob/master/django/ryang/static/js/spiralGL.js'>
+ 	View Source</a></div>
 </div>
 <h1>Portfolio & Projects</h1>
 <p>Here are a samping of websites, games and other projects I have developed. If you have any questions regarding them feel free to send me a message.</p>
